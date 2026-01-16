@@ -19,8 +19,8 @@
     echo "=============== GIT PUSH (SSH) ==============="
     echo "Working directory: $(pwd)"
     export GIT_SSH_COMMAND='ssh -i {{ gitops.private_key }}'
-    git config user.email {{ gitops.email }}
-    git config user.name {{ gitops.username }}
+    git config user.email "{{ gitops.email }}"
+    git config user.name "{{ gitops.username }}"
 
     echo "→ Pulling latest changes..."
     git pull
@@ -32,7 +32,7 @@
     if git commit -s -m "{{ msg }}"; then
       echo "✓ Changes committed successfully"
       echo "→ Pushing to {{ gitops.branch }}..."
-      if git push {{ gitops.git_url }} HEAD:{{ gitops.branch }}; then
+      if git push "{{ gitops.git_url }}" HEAD:"{{ gitops.branch }}"; then
         echo "✓ Changes pushed to {{ gitops.branch }} successfully"
         echo "→ Updating local tracking branch..."
         git fetch origin {{ gitops.branch }}:{{ gitops.branch }} 2>/dev/null || true
@@ -59,8 +59,8 @@
     cd "{{ GIT_DIR }}"
     echo "=============== GIT PUSH (HTTPS) ==============="
     echo "Working directory: $(pwd)"
-    git config user.email {{ gitops.email }}
-    git config user.name {{ gitops.username }}
+    git config user.email "{{ gitops.email }}"
+    git config user.name "{{ gitops.username }}"
 
     echo "→ Pulling latest changes..."
     git pull
@@ -72,7 +72,7 @@
     if git commit -s -m "{{ msg }}"; then
       echo "✓ Changes committed successfully"
       echo "→ Pushing to {{ gitops.branch }}..."
-      if git push https://{{ gitops.username }}:{{ gitops.password }}@{{ gitops.git_repo }} HEAD:{{ gitops.branch }}; then
+      if git push "https://{{ gitops.username }}:{{ gitops.password }}@{{ gitops.git_repo }}" HEAD:"{{ gitops.branch }}"; then
         echo "✓ Changes pushed to {{ gitops.branch }} successfully"
         echo "→ Updating local tracking branch..."
         git fetch origin {{ gitops.branch }}:{{ gitops.branch }} 2>/dev/null || true
